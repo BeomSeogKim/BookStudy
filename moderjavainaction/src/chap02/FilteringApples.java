@@ -2,6 +2,7 @@ package chap02;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 import static chap02.FilteringApples.Color.GREEN;
@@ -43,6 +44,8 @@ public class FilteringApples {
         // lambda
         System.out.println(filterApplesV2(inventory, (Apple apple) -> RED == apple.getColor()));
 
+        // Runnable
+        Thread t = new Thread(() -> System.out.println("Hello World"));
     }
 
     /*
