@@ -5,4 +5,3 @@ public class Child extends Parent {
         System.out.println("Child constructor");
     }
 }
-11Ju
