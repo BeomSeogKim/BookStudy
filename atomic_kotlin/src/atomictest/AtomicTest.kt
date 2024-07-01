@@ -1,4 +1,4 @@
-package test
+package atomictest
 
 import kotlin.math.abs
 import kotlin.reflect.KClass
@@ -111,4 +111,23 @@ fun capture(f:() -> Unit): CapturedException =
  * 나중에 누적된 출력을 예상값과 비교할 수 있다.
  *   trace eq "expected output"
  */
+object trace {
+    private val trc = mutableListOf<String> ()
+    operator fun invoke(obj: Any?) {
+        trc += obj.toString()
+    }
 
+    /**
+     * trc의 내용을 여러 줄 String과 비교한다.
+     * 비교할 때 공백은 무시한다.
+     */
+    infix fun eq(multiline: String) {
+        val trace = trc.joinToString("\n")
+        val expected = multiline.trimIndent()
+            .replace("\n", " ")
+        test(trace, multiline) {
+            trace.replace("\n", " ") == expected
+        }
+        trc.clear()
+    }
+}
